@@ -23,7 +23,7 @@ const imagePaths = {
 };
 
 function TopTags() {
-  const articles = useSelector((state) => state.articles);
+  const { articles } = useSelector((state) => state.articles);
   const AllCategories = articles?.map((article) => article.category) || [];
   const specialCategories = [
     ...new Set(articles?.map((article) => article.category) || []),

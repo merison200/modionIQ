@@ -7,7 +7,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function Search() {
-  const articles = useSelector((state) => state.articles);
+  const articles = useSelector((state) => state.articles.articles);
+
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const popupRef = useRef(null);
   const [input, setInput] = useState("");

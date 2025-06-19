@@ -14,7 +14,9 @@ import { Link } from "react-router-dom";
 function ArticleDetails() {
   const { articleId } = useParams();
   const dispatch = useDispatch();
-  const article = useSelector((state) => state.article);
+  const { article, loading, error } = useSelector((state) => state.article);
+
+  //const article = useSelector((state) => state.article);
 
   useEffect(() => {
     dispatch(fetchArticleById(articleId));
@@ -43,8 +45,13 @@ function ArticleDetails() {
               <div>
                 <span className={styles.author}>{article.author}</span>
                 <span className={styles.timeAndDate}>
-                  {article.date} • {article.reading_time}
+                  {new Date(article.createdAt).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                    })} • {article.reading_time}
                 </span>
+
               </div>
             </div>
             <img

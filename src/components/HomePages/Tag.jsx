@@ -15,11 +15,14 @@ import ArrowToTop from "../OtherPages/ArrowToTop";
 function Tag() {
   const { tag } = useParams();
   const dispatch = useDispatch();
-  const articles = useSelector((state) => state.articles);
 
-  const requiredArticles = articles.filter(
-    (article) => article.category === tag
-  );
+  const { articles, loading, error } = useSelector((state) => state.articles);
+
+  const safeArticles = Array.isArray(articles) ? articles : [];
+
+  const requiredArticles = safeArticles.filter(
+  (article) => article.category === tag
+);
 
   useEffect(() => {
     dispatch(fetchArticles());

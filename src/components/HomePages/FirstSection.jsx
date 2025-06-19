@@ -11,13 +11,38 @@ function FirstSection() {
     return emailRegex.test(email);
   };
 
-  const handleSubscribe = (event) => {
-    event.preventDefault();
-    if (!validateEmail(email)) {
-      toast.error("Please enter a valid email address");
-      return;
+  const handleSubscribe = async (event) => {
+  event.preventDefault();
+
+  if (!validateEmail(email)) {
+    toast.error("Please enter a valid email address");
+    return;
+  }
+
+    try {
+      const response = await fetch("https://modion.onrender.com/api/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.status === 409) {
+        toast.info("You’re already subscribed!");
+        return;
+      }
+
+      if (!response.ok) {
+        const message = await response.text();
+        throw new Error(message || "Failed to subscribe");
+      }
+
+      toast.success("Successfully subscribed! Check your email");
+      setEmail(""); // Clear input field
+    } catch (err) {
+      toast.error(err.message || "Subscription failed");
     }
-    toast.success("Successfully subscribed!");
   };
 
   const handleEmailChange = (event) => {
@@ -28,7 +53,7 @@ function FirstSection() {
     <div className={styles.bg}>
       <Container>
         <h1 className={styles.heroMainTitle}>
-          Hello 👋, we are QuirVibe. See our thoughts, stories, and ideas.
+          We are Modion. See our thoughts, stories, and ideas.
         </h1>
         <div className={styles.row}>
           <p className={styles.paragraph}>

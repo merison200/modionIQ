@@ -11,7 +11,7 @@ function FooterBottom() {
       <span className={styles.hr} />
       <Container className={styles.container}>
         <span className={styles.logoAndCpr}>
-          QuirVibe &copy; {year}. All rights reserved.
+          Modion &copy; {year}. All rights reserved.
         </span>
         <SocialIcons />
       </Container>
@@ -25,7 +25,7 @@ export function SocialIcons() {
   return (
     <div className={styles.socialIcons}>
       <a
-        href="https://www.facebook.com"
+        href="https://www.facebook.com/share/1EecrP7V2v/"
         className={styles.socialLink}
         target="_blank"
         rel="noopener noreferrer"
@@ -34,7 +34,7 @@ export function SocialIcons() {
         <FaFacebook />
       </a>
       <a
-        href="https://www.twitter.com"
+        href="https://x.com/lancelot_xyz?t=e1yIvraBMKKQsSRRJF4KFA&s=09"
         className={styles.socialLink}
         target="_blank"
         rel="noopener noreferrer"
@@ -52,7 +52,7 @@ export function SocialIcons() {
         <AiFillInstagram />
       </a>
       <a
-        href="https://www.linkedin.com/in/abdelrahmmaan/"
+        href="https://www.linkedin.com/in/okpala?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
         className={styles.socialLink}
         target="_blank"
         rel="noopener noreferrer"
@@ -61,7 +61,7 @@ export function SocialIcons() {
         <FaLinkedinIn />
       </a>
       <a
-        href="https://www.github.com"
+        href="https://github.com/merison200"
         className={styles.socialLink}
         target="_blank"
         rel="noopener noreferrer"

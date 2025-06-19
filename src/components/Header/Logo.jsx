@@ -13,7 +13,7 @@ function Logo() {
 
   return (
     <div className={styles.logo} onClick={handleScrollToTop}>
-      Quir<span className={styles.highlight}>V</span>ibe
+      Mo<span className={styles.highlight}>D</span>ion
     </div>
   );
 }

@@ -35,7 +35,7 @@ function AllTags() {
     dispatch(fetchArticles());
   }, [dispatch]);
 
-  const articles = useSelector((state) => state.articles);
+  const { articles } = useSelector((state) => state.articles);
   const categories = [...new Set(articles.map((article) => article.category))];
 
   return (

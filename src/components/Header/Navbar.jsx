@@ -4,119 +4,101 @@ import { RiMenu3Fill, RiCloseFill } from "react-icons/ri";
 import { CgSun, CgMoon } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleDarkMode } from "../../slices/darkModeSlice";
+import { logout } from "../../slices/authSlice";
 import { Link as ScrollLink } from "react-scroll";
 import { Link } from "react-router-dom";
 import Search from "./Search";
+import { MdAdminPanelSettings } from "react-icons/md";
 
 function Navbar() {
   const [mobile, setMobile] = useState(false);
   const dispatch = useDispatch();
   const isDarkMode = useSelector((state) => state.darkMode);
+  const user = useSelector((state) => state.auth.user);
 
-  // for making the mobile navbar
   function toggleScroll(enableScroll) {
     const body = document.body;
     const html = document.documentElement;
-    body.style.overflow = html.style.overflow = enableScroll
-      ? "auto"
-      : "hidden";
+    body.style.overflow = html.style.overflow = enableScroll ? "auto" : "hidden";
   }
 
   toggleScroll(!mobile);
 
+  const handleLogout = () => {
+    dispatch(logout());
+    setMobile(false);
+  };
+
   return (
     <div className={styles.navbar}>
       <nav className={mobile ? styles.navListMobile : styles.navList}>
-        <ScrollLink
-          to="home"
-          href="#"
-          rel="nofollow"
-          spy={true}
-          smooth={true}
-          offset={-100}
-          duration={250}
-          className={styles.navItem}
-          onClick={() => mobile && setMobile(!mobile)}
-        >
-          Home
-        </ScrollLink>
-        <ScrollLink
-          to="featured"
-          href="#"
-          rel="nofollow"
-          spy={true}
-          smooth={true}
-          offset={-50}
-          duration={250}
-          className={styles.navItem}
-          onClick={() => mobile && setMobile(!mobile)}
-        >
-          Featured
-        </ScrollLink>
-        <ScrollLink
-          to="tags"
-          href="#"
-          rel="nofollow"
-          spy={true}
-          smooth={true}
-          offset={-50}
-          duration={250}
-          className={styles.navItem}
-          onClick={() => mobile && setMobile(!mobile)}
-        >
-          Tags
-        </ScrollLink>
-        <ScrollLink
-          to="articles"
-          href="#"
-          rel="nofollow"
-          spy={true}
-          smooth={true}
-          offset={-50}
-          duration={250}
-          className={styles.navItem}
-          onClick={() => mobile && setMobile(!mobile)}
-        >
-          Articles
-        </ScrollLink>
-        <ScrollLink
-          to="contact"
-          href="#"
-          rel="nofollow"
-          spy={true}
-          smooth={true}
-          offset={-100}
-          duration={250}
-          className={styles.navItem}
-          onClick={() => mobile && setMobile(!mobile)}
-        >
-          Contact
-        </ScrollLink>
-        {mobile && (
-          <Link
-            to="signin"
-            href="#"
+        {["home", "featured", "tags", "articles", "contact"].map((section) => (
+          <ScrollLink
+            key={section}
+            to={section}
             rel="nofollow"
-            onClick={() => mobile && setMobile(!mobile)}
-            className={styles.signInMobile}
+            spy={true}
+            smooth={true}
+            offset={-80}
+            duration={250}
+            className={styles.navItem}
+            onClick={() => mobile && setMobile(false)}
           >
-            Sign In
-          </Link>
+            {section.charAt(0).toUpperCase() + section.slice(1)}
+          </ScrollLink>
+        ))}
+
+        {user?.user?.role === "admin" && (
+        <a
+          href="/src/components/admin/admin.html"
+          className={styles.navItem}
+          title="Admin Panel"
+        >
+          <MdAdminPanelSettings style={{ marginRight: "5px", verticalAlign: "middle" }} />
+          Admin
+        </a>
         )}
+
+        {mobile &&
+          (!user ? (
+            <Link
+              to="/signin"
+              onClick={() => setMobile(false)}
+              className={styles.signInMobile}
+            >
+              Sign In
+            </Link>
+          ) : (
+            <button onClick={handleLogout} className={styles.signInMobile}>
+              Logout
+            </button>
+          ))}
       </nav>
+
       <div className={styles.navbarActions}>
         <Search />
         <button
           className={styles.toggleButton}
-          aria-label="Toggle between dark and light mode"
           onClick={() => dispatch(toggleDarkMode())}
+          aria-label="Toggle between dark and light mode"
         >
           {isDarkMode.theme ? <CgSun /> : <CgMoon />}
         </button>
-        <Link to="signin" rel="nofollow" className={styles.signInLink}>
-          Sign In
-        </Link>
+
+        {!user ? (
+          <Link to="/signin" rel="nofollow" className={styles.signInLink}>
+            Sign In
+          </Link>
+        ) : (
+          <div className={styles.userSection}>
+            <span className={styles.userName}>{user.user.name}</span>
+            <button onClick={handleLogout} className={styles.logoutBtn}>
+              Logout
+            </button>
+          </div>
+        )}
       </div>
+
       <button
         className={styles.mobileIcon}
         onClick={() => setMobile(!mobile)}

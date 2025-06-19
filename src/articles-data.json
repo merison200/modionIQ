@@ -918,6 +918,52 @@
           "content": "Or, at least 30 minutes earlier than your normal wake-up time.(If you already wake up at 5, this one isn’t for you!) It seems like you suddenly have 2 to 3 extra hours added to your day. Also, you’ll get enough time to start your day well and work on passion projects. I have been waking up at 5:30 recently, and it’s transformed the way I think about mornings.I thought waking up early was the hardest part. But, not sleeping early is why you can’t make this a habit.So, if you ensure that you get 8 hours of sleep, and get enough sun exposure in the mornings immediately after waking up, it won’t be as hard. (Watching the sunrise is a beautiful bonus).\n"
         }
       ]
-    }
+    },
+
+
+
+    {
+        "New format" : "Data from the database"
+    },
+
+
+    {
+    "id": "6852683a00f812768e1eee3f",
+    "title": "Getting Started with Modern Web Development Technology 2",
+    "category": "Technology",
+    "image": "https://res.cloudinary.com/drixel4wv/image/upload/v1750231096/articles/nzlg6vx1lr9jcn37ertu.jpg",
+    "author": "merison1",
+    "author_image": "https://api.dicebear.com/7.x/initials/svg?seed=merison1&size=100",
+    "reading_time": "7 min read",
+    "sections": [
+      {
+        "content": "Modern web development has evolved significantly over the past few years. With new frameworks, tools, and best practices emerging constantly, it can be overwhelming for developers to keep up.",
+        "type": "paragraph"
+      },
+      {
+        "content": "Why Modern Web Development Matters",
+        "type": "heading"
+      },
+      {
+        "content": "Today's web applications need to be fast, responsive, and user-friendly. Modern development practices help us achieve these goals through better tooling, improved performance, and enhanced user experiences.",
+        "type": "paragraph"
+      },
+      {
+        "content": "Key technologies include React, Node.js, and modern CSS frameworks that enable developers to build scalable applications efficiently.",
+        "type": "paragraph"
+      }
+    ],
+    "tags": [
+      "nodejs",
+      "javascript",
+      "tecnology"
+    ],
+    "meta_description": "Getting Started with Modern Web Development Technology 2 Description",
+    "featured": true,
+    "status": "published",
+    "createdAt": "2025-06-18T07:18:18.097Z",
+    "updatedAt": "2025-06-18T07:18:18.097Z"
+  }
+
   ]
 }

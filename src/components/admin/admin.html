@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article API Testing Interface</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Admin Dashboard</h1>
+            <p>Engine of the blogspot</p>
+        </header>
+
+        <!-- Login Section -->
+        <div id="loginSection" class="login-card">
+            <div class="login-title">Admin Login</div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" required placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn btn-success" style="width: 100%;">Login</button>
+            </form>
+            <div id="loginError" class="error-message hidden"></div>
+        </div>
+
+        <!-- Main Dashboard (Hidden until logged in) -->
+        <div id="dashboardSection" class="hidden">
+            <!-- Authentication Status -->
+            <div class="config-card">
+                <div class="config-title">
+                    <span class="config-icon">👤</span>
+                    Authentication Status
+                </div>
+                <div class="auth-status authenticated" id="authStatus">
+                    <span>✅</span>
+                    <span>Authenticated</span>
+                    <button class="btn btn-secondary" onclick="logout()" style="margin-left: auto;">Logout</button>
+                </div>
+            </div>
+            
+            <!-- Configuration Section -->
+            <div class="config-card">
+                <div class="config-title">
+                    <span class="config-icon">⚙️</span>
+                    API Configuration
+                </div>
+                <div class="form-group">
+                    <label for="baseUrl">Base URL</label>
+                    <input type="text" id="baseUrl" class="form-control" value="http://localhost:5000/api" placeholder="http://localhost:5000/api">
+                </div>
+            </div>
+
+            <!-- Response Section -->
+            <div class="response-container">
+                <div class="response-header">
+                    <div class="response-title">
+                        <span>📡</span>
+                        API Response
+                    </div>
+                </div>
+                <div id="responseArea" class="response-area">Ready to test endpoints...</div>
+            </div>
+
+            <!-- API Endpoints Grid -->
+            <div class="grid">
+                <!-- Get All Articles -->
+                <div class="card">
+                    <div class="card-title">
+                        <div class="card-icon">📋</div>
+                        Get All Articles
+                    </div>
+                    <button class="btn" onclick="getAllArticles()">Get All Articles</button>
+                    <button class="btn btn-success" onclick="getFeaturedArticles()">Get Featured</button>
+                    <button class="btn" onclick="getCategories()">Get Categories</button>
+                </div>
+
+                <!-- Search Articles -->
+                <div class="card">
+                    <div class="card-title">
+                        <div class="card-icon">🔍</div>
+                        Search Articles
+                    </div>
+                    <div class="form-group">
+                        <label for="searchQuery">Search Query</label>
+                        <input type="text" id="searchQuery" class="form-control" placeholder="Enter search term">
+                    </div>
+                    <button class="btn" onclick="searchArticles()">Search Articles</button>
+                </div>
+
+                <!-- Get Article by ID -->
+                <div class="card">
+                    <div class="card-title">
+                        <div class="card-icon">🎯</div>
+                        Get Article by ID
+                    </div>
+                    <div class="form-group">
+                        <label for="articleId">Article ID</label>
+                        <input type="text" id="articleId" class="form-control" placeholder="Enter article ID">
+                    </div>
+                    <button class="btn" onclick="getArticleById()">Get Article</button>
+                </div>
+
+                <!-- Get Articles by Category -->
+                <div class="card">
+                    <div class="card-title">
+                        <div class="card-icon">🏷️</div>
+                        Get Articles by Category
+                    </div>
+                    <div class="form-group">
+                        <label for="categorySelect">Category</label>
+                        <select id="categorySelect" class="form-control">
+                            <option value="business">Business</option>
+                            <option value="fashion">Fashion</option>
+                            <option value="ideas">Ideas</option>
+                            <option value="lifestyle">Lifestyle</option>
+                            <option value="design">Design</option>
+                            <option value="Technology">Technology</option>
+                            <option value="creative">Creative</option>
+                            <option value="story">Story</option>
+                        </select>
+                    </div>
+                    <button class="btn" onclick="getArticlesByCategory()">Get Articles</button>
+                </div>
+
+                <!-- Create Article -->
+                <div class="card" style="grid-column: 1 / -1;">
+                    <div class="card-title">
+                        <div class="card-icon">✨</div>
+                        Create Article
+                    </div>
+                    <form id="createArticleForm">
+                        <div class="two-column">
+                            <div class="form-group">
+                                <label for="createTitle">Title</label>
+                                <input type="text" id="createTitle" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="createCategory">Category</label>
+                                <select id="createCategory" class="form-control" required>
+                                    <option value="business">Business</option>
+                                    <option value="fashion">Fashion</option>
+                                    <option value="ideas">Ideas</option>
+                                    <option value="lifestyle">Lifestyle</option>
+                                    <option value="design">Design</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="creative">Creative</option>
+                                    <option value="story">Story</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="two-column">
+                            <div class="form-group">
+                                <label for="createImage">Image</label>
+                                <input type="file" id="createImage" class="form-control" accept="image/*" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="createAuthor">Author ID</label>
+                                <input type="text" id="createAuthor" class="form-control" required placeholder="MongoDB ObjectId">
+                            </div>
+                        </div>
+
+                        <div class="two-column">
+                            <div class="form-group">
+                                <label for="createReadingTime">Reading Time</label>
+                                <input type="text" id="createReadingTime" class="form-control" required placeholder="5 min read">
+                            </div>
+                            <div class="form-group">
+                                <label for="createTags">Tags (comma separated)</label>
+                                <input type="text" id="createTags" class="form-control" placeholder="tag1, tag2, tag3">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="createMetaDescription">Meta Description</label>
+                            <textarea id="createMetaDescription" class="form-control" maxlength="10000" placeholder="Brief description (max 10000 chars)"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="createSections">Sections (JSON format)</label>
+                            <textarea id="createSections" class="form-control" required placeholder='[{"content": "Article content here", "type": "paragraph"}]'></textarea>
+                        </div>
+
+                        <div class="two-column">
+                            <div class="checkbox-group">
+                                <label class="checkbox">
+                                    <input type="checkbox" id="createFeatured">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <span>Featured Article</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="createStatus">Status</label>
+                                <select id="createStatus" class="form-control">
+                                    <option value="published">Published</option>
+                                    <option value="draft">Draft</option>
+                                    <option value="archived">Archived</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Create Article</button>
+                    </form>
+                </div>
+
+                <!-- Update Article -->
+                <div class="card" style="grid-column: 1 / -1;">
+                    <div class="card-title">
+                        <div class="card-icon">✏️</div>
+                        Update Article
+                    </div>
+                    <form id="updateArticleForm">
+                        <div class="form-group">
+                            <label for="updateId">Article ID to Update</label>
+                            <input type="text" id="updateId" class="form-control" required placeholder="Enter article ID to update">
+                        </div>
+
+                        <div class="two-column">
+                            <div class="form-group">
+                                <label for="updateTitle">Title</label>
+                                <input type="text" id="updateTitle" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="updateCategory">Category</label>
+                                <select id="updateCategory" class="form-control">
+                                    <option value="">Select category</option>
+                                    <option value="business">Business</option>
+                                    <option value="fashion">Fashion</option>
+                                    <option value="ideas">Ideas</option>
+                                    <option value="lifestyle">Lifestyle</option>
+                                    <option value="design">Design</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="creative">Creative</option>
+                                    <option value="story">Story</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="updateImage">New Image (optional)</label>
+                            <input type="file" id="updateImage" class="form-control" accept="image/*">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="updateSections">Sections (JSON format)</label>
+                            <textarea id="updateSections" class="form-control" placeholder='[{"content": "Updated content", "type": "paragraph"}]'></textarea>
+                        </div>
+
+                        <button type="submit" class="btn">Update Article</button>
+                    </form>
+                </div>
+
+                <!-- Delete Article -->
+                <div class="card">
+                    <div class="card-title">
+                        <div class="card-icon">🗑️</div>
+                        Delete Article
+                    </div>
+                    <div class="form-group">
+                        <label for="deleteId">Article ID to Delete</label>
+                        <input type="text" id="deleteId" class="form-control" required placeholder="Enter article ID to delete">
+                    </div>
+                    <button class="btn btn-danger" onclick="deleteArticle()">Delete Article</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
