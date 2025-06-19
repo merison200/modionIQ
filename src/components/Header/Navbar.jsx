@@ -50,7 +50,7 @@ function Navbar() {
 
         {user?.user?.role === "admin" && (
         <a
-          href="/src/components/admin/admin.html"
+          href="/admin/admin.html"
           className={styles.navItem}
           title="Admin Panel"
         >
