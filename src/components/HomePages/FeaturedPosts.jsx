@@ -21,7 +21,7 @@ function FeaturedPosts() {
         .sort(
           (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
         )
-        .slice(0, 4)
+        .slice(0, 3)
     : [];
 
   return (
@@ -44,7 +44,7 @@ function FeaturedPosts() {
                 <div className={styles.overlay}>
                   <span className={styles.category}>{article.category}</span>
                   <h1 className={styles.title}>
-                    {article.title.slice(0, 3)}
+                    {article.title.slice(0, 300)}
                   </h1>
                   <div className={styles.info}>
                     <img
