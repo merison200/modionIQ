@@ -44,7 +44,7 @@ function FeaturedPosts() {
                 <div className={styles.overlay}>
                   <span className={styles.category}>{article.category}</span>
                   <h1 className={styles.title}>
-                    {article.title.slice(0, 30)}...
+                    {article.title.slice(0, 3)}
                   </h1>
                   <div className={styles.info}>
                     <img
